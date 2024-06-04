@@ -4,7 +4,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private Transform _target;
-    [SerializeField] private GameObject _bullet;
+    [SerializeField] private Bullet _bullet;
     [SerializeField] private float _speed;
     [SerializeField] private float _rechargingTime; 
 
@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
         while (isWorking)
         {
             Vector3 direction = (_target.position - transform.position).normalized;
-            GameObject bullet = Instantiate(_bullet, transform.position + direction, Quaternion.identity);
+            GameObject bullet = Instantiate(_bullet.gameObject, transform.position + direction, Quaternion.identity);
             bullet.transform.up = direction;
 
             if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))

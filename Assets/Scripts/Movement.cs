@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Points : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] private Transform[] _places;
     [SerializeField] private Transform _point;
