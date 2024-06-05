@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
 
         for (int i = 0; i < _point.childCount; i++)
         {
-            _places[i] = _point.GetChild(i).GetComponent<Transform>();
+            _places[i] = _point.GetChild(i).transform;
         }
     }
 

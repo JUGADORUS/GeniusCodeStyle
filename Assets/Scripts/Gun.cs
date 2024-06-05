@@ -8,9 +8,13 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _rechargingTime; 
 
+    private WaitForSeconds _waitForSeconds; 
+
     private void Start()
     {
         StartCoroutine(Shoot());
+
+        _waitForSeconds = new WaitForSeconds(_rechargingTime);
     }
 
     private IEnumerator Shoot()
@@ -20,7 +24,7 @@ public class Gun : MonoBehaviour
         while (isWorking)
         {
             Vector3 direction = (_target.position - transform.position).normalized;
-            GameObject bullet = Instantiate(_bullet.gameObject, transform.position + direction, Quaternion.identity);
+            Bullet bullet = Instantiate(_bullet, transform.position + direction, Quaternion.identity);
             bullet.transform.up = direction;
 
             if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
@@ -28,7 +32,7 @@ public class Gun : MonoBehaviour
                 rigidbody.velocity = direction * _speed;
             }
 
-            yield return new WaitForSeconds(_rechargingTime);
+            yield return _waitForSeconds;
         }
     }
 }
