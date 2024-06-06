@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private Transform[] _places;
-    [SerializeField] private Transform _point;
+    [SerializeField] private Transform _points;
     [SerializeField] private float _speed;
     [SerializeField] private int _index;
 
+    private Transform[] _places;
+
     private void Start()
     {
-        _places = new Transform[_point.childCount];
+        _places = new Transform[_points.childCount];
 
-        for (int i = 0; i < _point.childCount; i++)
+        for (int i = 0; i < _places.Length; i++)
         {
-            _places[i] = _point.GetChild(i).transform;
+            _places[i] = _points.GetChild(i);
         }
     }
 
@@ -24,18 +25,13 @@ public class Movement : MonoBehaviour
 
         if (transform.position == point.position)
         {
-            MoveToNextPoint();
+            SetNextPoint();
         }
     }
 
-    private void MoveToNextPoint()
+    private void SetNextPoint()
     {
-        _index++;
-
-        if (_index == _places.Length)
-        {
-            _index = 0;
-        }
+        _index = (_index + 1) % _places.Length;
 
         Vector3 point = _places[_index].transform.position;
         transform.forward = point - transform.position;
